@@ -1,0 +1,25 @@
+import http from 'node:http';
+import fs from 'node:fs/promises'
+
+// Create a local server to receive data from
+const server = http.createServer(async (req, res) => {
+  let data
+  switch (req.url) {
+    case '/':
+      data = await fs.readFile('index.html')
+      break
+    case '/about':
+      data = await fs.readFile('./about.html')
+      break;
+    case '/contact-me':
+      data = await fs.readFile('contact-me.html')
+      break;
+    default:
+      data = await fs.readFile('404.html')
+      break;
+  }
+  res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end(data);
+});
+
+server.listen(8000);
