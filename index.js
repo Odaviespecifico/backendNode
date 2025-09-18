@@ -16,10 +16,12 @@ const server = http.createServer(async (req, res) => {
       break;
     default:
       data = await fs.readFile('404.html')
-      break;
+      res.writeHead(404, { 'Content-Type': 'text/html' });
+      res.end(data);
+      return
   }
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.end(data);
 });
 
-server.listen(8000);
+server.listen(8080);
