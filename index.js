@@ -10,10 +10,7 @@ app.get('/contact', async (req,res) =>
 app.get('/about', async (req,res) =>
   res.sendFile('./about.html',{root:process.cwd()}))
 app.get('/style.css', (req,res) => {res.sendFile('./style.css',{root:process.cwd()})})
-
 // For the 404 error
-app.use((req,res,) => {
-  res.status(404).sendFile('./404.html',{root:process.cwd()})
-})
+app.get('/{*splat}',(req,res) => res.sendFile('./404.html',{root:process.cwd()}))
 
 app.listen(3000)
