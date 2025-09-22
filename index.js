@@ -3,7 +3,6 @@ import fs from 'node:fs/promises'
 import express from "express"
 const app = express()
 
-// Create a local server to receive data from
 app.get('/', async (req,res) =>
   res.sendFile('./index.html',{root:process.cwd()}))
 app.get('/contact', async (req,res) =>
@@ -11,7 +10,10 @@ app.get('/contact', async (req,res) =>
 app.get('/about', async (req,res) =>
   res.sendFile('./about.html',{root:process.cwd()}))
 app.get('/style.css', (req,res) => {res.sendFile('./style.css',{root:process.cwd()})})
-app.use((req,res,next) => {
+
+// For the 404 error
+app.use((req,res,) => {
   res.status(404).sendFile('./404.html',{root:process.cwd()})
 })
+
 app.listen(3000)
